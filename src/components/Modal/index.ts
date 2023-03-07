@@ -37,11 +37,10 @@ const Modal = {
     addForm?.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      const newRestaurant = Object.fromEntries(
-        [...new FormData(e.target as HTMLFormElement)].map(([key, value]) => {
-          return [key, key === 'distance' ? Number(value) : value];
-        })
-      ) as unknown as IRestaurant;
+      const restaurantForm = [...new FormData(e.target as HTMLFormElement)].map(([key, value]) => {
+        return [key, key === 'distance' ? Number(value) : value];
+      });
+      const newRestaurant: IRestaurant = Object.fromEntries(restaurantForm);
       RestaurantList.update(RestaurantListItem.add(newRestaurant));
 
       this.formReset();
